@@ -1,0 +1,48 @@
+version: '3.8'
+
+networks:
+  redeLan:
+    driver: bridge
+
+services:
+  backend1:
+    build: 
+      context: ./backend1
+    container_name: backend1
+    networks:
+      - redeLan
+
+  backend2:
+    build: 
+      context: ./backend2
+    container_name: backend2
+    networks:
+      - redeLan
+
+  backend3:
+    build: 
+      context: ./backend3
+    container_name: backend3
+    networks:
+      - redeLan
+
+  backend4:
+    build: 
+      context: ./backend4
+    container_name: backend4
+    networks:
+      - redeLan  
+
+  nginx:
+    build: 
+      context: ./nginx
+    container_name: nginx
+    networks:
+      - redeLan
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+      - backend4
+    ports:
+      - 5000:5000
